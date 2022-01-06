@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql_database:
+        platform: linux/x86_64
+        container_name: mysql_database
+        image: mysql:latest
+        volumes:
+            - mysql_data:/var/lib/mysql
+        env_file:
+            - .env
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: mysql
+            MYSQL_PASSWORD: password
+        ports: 
+            - 3307:3306
+#   api:
+#         links:
+#         - mysql_database
+#         container_name: "api"
+#         build: .
+#         ports:
+#         - "8000:8000"
+#         volumes:
+#         - ./code:/usr/src/server
+
+volumes:
+  mysql_data:
+  
