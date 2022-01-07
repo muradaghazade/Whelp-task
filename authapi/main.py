@@ -51,7 +51,7 @@ def authjwt_exception_handler(request: Request, exc: AuthJWTException):
     )
 
 
-@app.post("/signup/", response_model=schemas.User, dependencies=[Depends(get_db)])
+@app.post("/signup", response_model=schemas.User, dependencies=[Depends(get_db)])
 def create_user(user: schemas.UserCreate):
     db_user = crud.get_user_by_email(email=user.email)
     if db_user:
@@ -59,7 +59,7 @@ def create_user(user: schemas.UserCreate):
     return crud.create_user(user=user)
 
 
-@app.get("/users/", response_model=List[schemas.User], dependencies=[Depends(get_db)])
+@app.get("/users", response_model=List[schemas.User], dependencies=[Depends(get_db)])
 def read_users(skip: int = 0, limit: int = 100):
     users = crud.get_users(skip=skip, limit=limit)
     return users
@@ -100,10 +100,18 @@ def protected(Authorize: AuthJWT = Depends()):
     return {"email": db_user.email, "first_name": db_user.first_name, "last_name": db_user.last_name, "is_active": db_user.is_active}
 
 
-@app.post("/task/", dependencies=[Depends(get_db)])
+@app.post("/task", dependencies=[Depends(get_db)])
 def create_task(Authorize: AuthJWT = Depends()):
     Authorize.jwt_required()
     task = crud.create_task()
     current_user = Authorize.get_jwt_subject()
-    get_ip_details.delay(current_user)
+    get_ip_details.delay(current_user, task.id)
     return {'id': str(task.id)}
+
+
+@app.get("/status/{task_id}", response_model=schemas.Task, dependencies=[Depends(get_db)])
+def read_task(task_id: int):
+    db_task = crud.get_task(task_id=task_id)
+    if db_task is None:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return db_task

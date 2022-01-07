@@ -26,6 +26,10 @@ def create_task():
     db_task = models.Task()
     db_task.save()
     return db_task
+
+
+def get_task(task_id: int):
+    return models.Task.filter(models.Task.id == task_id).first()
 # def create_access_token(*, data: dict, expires_delta: timedelta = None):
 #     secret_key = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 #     algorithm = "HS256"

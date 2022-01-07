@@ -1,7 +1,7 @@
 from time import sleep
 from celery import Celery
 from celery.utils.log import get_task_logger
-from models import User
+from models import User, Task
 
 from requests import get
 
@@ -11,7 +11,7 @@ celery_log = get_task_logger(__name__)
 
 
 @celery.task
-def get_ip_details(user):
+def get_ip_details(user, task):
     from ipdata import ipdata
     ip = get('https://api.ipify.org').content.decode('utf8')
     ipdata = ipdata.IPData('711208fb9c48844a077f6d18e818d20db5954d83280f3be03f2c9cdf')
@@ -20,6 +20,9 @@ def get_ip_details(user):
     user = User.select().where(User.email == user).get()
     user.ip_details = response
     user.save()
+    task = Task.select().where(Task.id == task).get()
+    task.status = "Compeleted"
+    task.save()
     return {"message": "Okay"}
 
 

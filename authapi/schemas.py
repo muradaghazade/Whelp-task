@@ -40,5 +40,13 @@ class UserAuthenticate(BaseModel):
 # class TaskCreate(BaseModel):
 #     pass
 
+# class Task(BaseModel):
+#     id: int
+
+
 class Task(BaseModel):
     id: int
+    status: str
+
+    class Config:
+        orm_mode = True
