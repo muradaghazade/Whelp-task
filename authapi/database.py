@@ -19,10 +19,10 @@ class PeeweeConnectionState(peewee._ConnectionState):
         return self._state.get()[name]
 
 
-# db = peewee.SqliteDatabase(DATABASE_NAME, check_same_thread=False)
-db = peewee.MySQLDatabase(
-        "mysql",user="root",
-        password="password",port=3306
-    )
+db = peewee.SqliteDatabase(DATABASE_NAME, check_same_thread=False)
+# db = peewee.MySQLDatabase(
+#         "mysql",user="root",
+#         password="password",port=3306
+#     )
 
 db._state = PeeweeConnectionState()

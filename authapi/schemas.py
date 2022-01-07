@@ -18,6 +18,7 @@ class UserBase(BaseModel):
     first_name: str
     last_name: str
 
+
 class UserCreate(UserBase):
     password: str
     
@@ -25,15 +26,19 @@ class UserCreate(UserBase):
 class User(UserBase):
     id: int
     is_active: bool
+    ip_details: str
 
     class Config:
         orm_mode = True
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 
 class UserAuthenticate(BaseModel):
     password: str
     email: str
+
+
+# class TaskCreate(BaseModel):
+#     pass
+
+class Task(BaseModel):
+    id: int

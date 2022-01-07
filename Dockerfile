@@ -1,9 +1,22 @@
-FROM python:3.7
+FROM python:3.8.3-buster
 
-WORKDIR /usr/src/server
-ADD requirements.txt .
+ENV PYTHONFAULTHANDLER=1 \
+  PYTHONUNBUFFERED=1 \
+  PYTHONHASHSEED=random \
+  PIP_NO_CACHE_DIR=off \
+  PIP_DISABLE_PIP_VERSION_CHECK=on \
+  PIP_DEFAULT_TIMEOUT=100
 
-RUN pip install --trusted-host pypi.python.org -r requirements.txt
+RUN pip install poetry
 
+# Copy only requirements to cache them in docker layer
+WORKDIR /code
+COPY poetry.lock pyproject.toml /code/
 
-CMD ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
+# Project initialization:
+RUN poetry config virtualenvs.create false \
+  && poetry install --no-interaction --no-ansi
+
+# Creating folders, and files for a project:
+# COPY app.py /code/app.py
+# COPY worker.py /code/worker.py

@@ -1,8 +1,5 @@
-# from sqlalchemy.orm import Session
-# from sqlalchemy.sql.functions import user
-from datetime import timedelta, datetime
-import jwt
-from . import models, schemas
+import models
+import schemas
 import bcrypt
 
 
@@ -25,6 +22,10 @@ def create_user(user: schemas.UserCreate):
     return db_user
 
 
+def create_task():
+    db_task = models.Task()
+    db_task.save()
+    return db_task
 # def create_access_token(*, data: dict, expires_delta: timedelta = None):
 #     secret_key = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
 #     algorithm = "HS256"

@@ -1,24 +1,27 @@
 import peewee
 
-from .database import db
+from database import db
 
 
 class User(peewee.Model):
-    # id = peewee.AutoField()
     first_name = peewee.CharField()
     last_name = peewee.CharField()
     email = peewee.CharField(unique=True, index=True)
     hashed_password = peewee.CharField()
+    ip_details = peewee.CharField(default="Empty")
     is_active = peewee.BooleanField(default=True)
+    
 
     class Meta:
         database = db
 
 
+class Task(peewee.Model):
+    status = peewee.CharField(default="Not Completed")
+    # user = peewee.ForeignKeyField(User, backref='tasks')
 
-print(User.select())
-
-
+    class Meta:
+        database = db
 
 
 
