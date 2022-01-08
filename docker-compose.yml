@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3"
 services:
   rabbit:
     image: rabbitmq:latest
@@ -10,11 +10,6 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: password
   
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
   # mysql_database:
   #   platform: linux/x86_64
   #   container_name: mysql_database
