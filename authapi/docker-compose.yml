@@ -39,6 +39,6 @@ services:
 #         volumes:
 #         - ./code:/usr/src/server
 
-volumes:
-  mysql_data:
+# volumes:
+#   db:
   
