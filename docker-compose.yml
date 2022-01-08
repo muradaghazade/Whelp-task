@@ -18,14 +18,14 @@ services:
     ports: 
         - 3307:3306
 
-  # web:
-  #   build: .
-  #   volumes:
-  #     - .:/code
-  #   ports:
-  #     - "8000:8000"
-    # depends_on:
-    #   - mysql_database
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql_database
 
 
 
