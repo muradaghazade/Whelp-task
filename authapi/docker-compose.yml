@@ -3,13 +3,20 @@ services:
   rabbit:
     image: rabbitmq:latest
 
-  db:
-    image: mysql
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
+  mysql_database:
+    # platform: linux/x86_64
+    container_name: mysql_database
+    image: mysql:latest
+    volumes:
+        - mysql_data:/var/lib/mysql
+    env_file:
+        - ../.env
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: mysql
+        MYSQL_ROOT_PASSWORD: password
+        MYSQL_DATABASE: mysql
+        MYSQL_PASSWORD: password
+    ports: 
+        - 3307:3306
 
   web:
     build: .
@@ -18,27 +25,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - mysql_database
 
 
-
-
-
-
-# version: '3.8'
-
-# services:
-#   
-#   api:
-#         links:
-#         - mysql_database
-#         container_name: "api"
-#         build: .
-#         ports:
-#         - "8000:8000"
-#         volumes:
-#         - ./code:/usr/src/server
-
-# volumes:
-#   db:
+volumes:
+  mysql_data:
   

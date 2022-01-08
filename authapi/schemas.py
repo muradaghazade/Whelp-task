@@ -37,13 +37,6 @@ class UserAuthenticate(BaseModel):
     email: str
 
 
-# class TaskCreate(BaseModel):
-#     pass
-
-# class Task(BaseModel):
-#     id: int
-
-
 class Task(BaseModel):
     id: int
     status: str

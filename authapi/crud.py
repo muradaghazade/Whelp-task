@@ -30,21 +30,3 @@ def create_task():
 
 def get_task(task_id: int):
     return models.Task.filter(models.Task.id == task_id).first()
-# def create_access_token(*, data: dict, expires_delta: timedelta = None):
-#     secret_key = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-#     algorithm = "HS256"
-#     to_encode = data.copy()
-#     if expires_delta:
-#         expire = datetime.utcnow() + expires_delta
-#     else:
-#         expire = datetime.utcnow() + timedelta(minutes=15)
-#     to_encode.update({"exp": expire})
-#     encoded_jwt = jwt.encode(to_encode, secret_key, algorithm=algorithm)
-#     return encoded_jwt
-
-
-# def check_email_password(user: schemas.UserAuthenticate):
-#     db_user_info: models.User = get_user_by_email(db, email=user.email)
-#     print(user.password.encode('utf-8'), '___1')
-#     print(db_user_info.hashed_password, "___2")
-#     return bcrypt.checkpw(user.password.encode('utf-8'), db_user_info.hashed_password)
