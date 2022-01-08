@@ -9,7 +9,7 @@ CacheControl==0.12.10
 cachy==0.3.0
 # celery==5.2.3
 certifi==2021.10.8
-cffi==1.15.0
+# cffi==1.15.0
 charset-normalizer==2.0.9
 cleo==0.8.1
 click==8.0.3
