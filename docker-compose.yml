@@ -4,7 +4,7 @@ services:
     image: rabbitmq:latest
 
   mysql_database:
-    platform: linux/x86_64
+    # platform: linux/x86_64
     container_name: mysql_database
     image: mysql:latest
     volumes:
