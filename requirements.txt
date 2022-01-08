@@ -45,7 +45,7 @@ Mako==1.1.6
 MarkupSafe==2.0.1
 msgpack==1.0.3
 mysql-connector-python==8.0.27
-mysqlclient==2.1.0
+# mysqlclient==2.1.0
 # orjson==3.6.5
 packaging==20.9
 passlib==1.7.4
